@@ -1,0 +1,36 @@
+# Integrated file
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend
+spec:
+  selector:
+    type: LoadBalancer
+    appName: nodejs-app
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      appName: nodejs-app
+      tier: backend
+  template:
+    metadata:
+      labels:
+        appName: nodejs-app
+        tier: backend
+    spec:
+      containers:
+        - name: nodejs-app
+          image: milkcoke/kube-first-app:v1.0.0
+

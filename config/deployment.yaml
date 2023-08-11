@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+#  name of the project
+metadata:
+  # unique name in namespace
+  name: node-app-deployment
+spec:
+  replicas: 3
+  # This is required for deciding which pods are to be applied
+  selector:
+    # key - value pair for label
+    # should be controlled by this deployment
+    # AND 조건이라 둘다 맞아야 허용됨 하나라도 틀리면 이 디플로이먼트로 관리되지 않는다.
+    matchLabels:
+      appName: nodejs-app
+      tier: backend
+
+  # The template of deployment always describes a pod
+  # So it doesn't require 'kind' key
+  template:
+    # pod is another object
+    metadata:
+      # pod template can have multiple labels
+      labels:
+        appName: nodejs-app
+        tier: backend
+    spec:
+      # Which allows defining containers.
+      containers:
+        - name: nodejs-app
+          image: milkcoke/kube-first-app:v1.0.0
+
