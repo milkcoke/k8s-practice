@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: stroy-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      appKind: story
+  # pod template
+  template:
+    metadata:
+      labels:
+        appKind: story
+    spec:
+      containers:
+        - name: story
+          image: milkcoke/kube-volume-app:v1.0.0
+
