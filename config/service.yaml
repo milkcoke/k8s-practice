@@ -2,6 +2,10 @@ apiVersion: v1
 kind: Service
 metadata:
   name: backend
+  # we can apply and delete using command like
+  # kubectl delete deployment -l <key=value>
+  labels:
+    environment: dev
 # Service
 spec:
   # Selector decides which resources are controlled by this resource (kind)

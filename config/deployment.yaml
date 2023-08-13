@@ -4,6 +4,8 @@ kind: Deployment
 metadata:
   # unique name in namespace
   name: node-app-deployment
+  labels:
+    environment: dev
 spec:
   replicas: 3
   # This is required for deciding which pods are to be applied
@@ -14,7 +16,13 @@ spec:
     matchLabels:
       appName: nodejs-app
       tier: backend
-
+      # Use matchExpression when to use complex conditions
+#    matchExpressions:
+#      - key: appName
+#        operator: In
+#        values:
+#          - nodejs-app
+#          - java-app
   # The template of deployment always describes a pod
   # So it doesn't require 'kind' key
   template:
@@ -29,4 +37,13 @@ spec:
       containers:
         - name: nodejs-app
           image: milkcoke/kube-first-app:v1.0.0
+          # Always option is default when tagging image with `latest`
+          # Values in One of [Always, Never, IfNotPresent]
+          imagePullPolicy: Never
+          # Health check.
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 8080
+            initialDelaySeconds: 10
 
