@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: stroy-deployment
+  name: story-deployment
 spec:
   replicas: 1
   selector:
@@ -15,5 +15,14 @@ spec:
     spec:
       containers:
         - name: story
-          image: milkcoke/kube-volume-app:v1.0.0
+          image: milkcoke/kube-volume-app:v1.0.1
+          imagePullPolicy: Always
+          volumeMounts:
+            - mountPath: /app/story # Container internal path
+              name: story-volume
+      volumes:
+        - name: story-volume
+          # emptyDir: {} 의미
+          # default value 로 인식하라
+          emptyDir: {}
 

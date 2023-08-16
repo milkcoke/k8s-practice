@@ -1,6 +1,6 @@
 const path = require('path');
 const fs = require('fs');
-
+const process = require('node:process');
 const express = require('express');
 const app = express();
 const filePath = path.join(__dirname, 'story', 'text.txt');
@@ -16,6 +16,10 @@ app.get('/story', (req, res) => {
         .status(200)
         .json({ story: data.toString() });
   });
+});
+
+app.get('/error', (req, res)=> {
+  process.exit(1);
 });
 
 app.post('/story', (req, res) => {
