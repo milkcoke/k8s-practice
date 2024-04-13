@@ -1,8 +1,7 @@
 # Kubernetes Practice
 
 ## Environment
-- [minikube](https://minikube.sigs.k8s.io/docs/start/)
-- VirtualBox or Hyper-V or Docker Desktop
+Docker desktop
 
 ### Docker image
 Push your image to docker hub
@@ -14,16 +13,29 @@ I'm using [this image](https://hub.docker.com/repository/docker/milkcoke/kub-fir
 
 ### Quick start
 ```bash
-# Start k8s cluster with driver (You can use also VirtualBox, hyperV)
-$ minikube start --driver=docker
-# Create deployment using image
-$ minikube create deployment first-app --image=[image-name]
+$ kubectl proxy
 ```
-
-### View Dashboard
-Minikube support dashboard in your local machine with web browser.
-```bash
-$ minikube dashboard
-```
+You can use dashboard on `http://localhost:8001/api/v1/namespaces/kubernetes-dashboard/services/https:kubernetes-dashboard:/proxy`
 
 ![Dashboard](/assets/minikube-dashboard.png)
+
+
+# Resources
+
+## Namespace
+All resource of k8s has separated by namespace.
+![Namespace](/assets/kubernetes-namespace.png)
+
+```bash
+$ kubectl apply -f deployment-a.yaml # has namespace 'a'
+
+$ kubectl apply -f deployment-b.yaml # has namespace 'b'
+
+$ kubectl get deployment --all-namespaces
+```
+
+```plaintext
+NAMESPACE              NAME                        READY   UP-TO-DATE   AVAILABLE   AGE
+a                      hello-kaimol-4              1/1     1            1           3m43s
+b                      hello-kaimol-4              1/1     1            1           3m38s
+```
