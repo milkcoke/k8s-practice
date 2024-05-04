@@ -1,0 +1,29 @@
+# api
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: practice
+  name: numbers-api # domain name is `numbers-api`
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+  selector:
+    app: lab-numbers-api # pod name is `lab-numbers-api-$`
+    version: v1
+  type: ClusterIP
+---
+# web
+apiVersion: v1
+kind: Service
+metadata:
+  name: numbers-web
+  namespace: practice
+spec:
+  ports:
+    - port: 8088 #External port is 8088
+      targetPort: 80
+  selector:
+    app: lab-numbers-web
+    version: v2
+  type: LoadBalancer

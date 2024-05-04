@@ -1,0 +1,59 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-numbers-api
+  namespace: practice
+spec:
+  selector:
+    matchLabels:
+      app: lab-numbers-api
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: lab-numbers-api
+        version: v1
+    spec:
+      containers:
+        - name: api
+          image: kiamol/ch03-numbers-api
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-numbers-web
+  namespace: practice
+spec:
+  selector:
+    matchLabels:
+      app: lab-numbers-web
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: lab-numbers-web
+        version: v1
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch03-numbers-web
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: lab-numbers-web-v2
+  namespace: practice
+spec:
+  selector:
+    matchLabels:
+      app: lab-numbers-web
+      version: v2
+  template:
+    metadata:
+      labels:
+        app: lab-numbers-web
+        version: v2
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch03-numbers-web:v2
