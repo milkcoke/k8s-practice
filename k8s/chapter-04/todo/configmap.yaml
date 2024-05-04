@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: todo-web
+  namespace: practice
+data:
+  # 이렇게 yaml 에 직접 주입하는 방식이 config map 적용을 한 번에 할 수 있어 편하다.
+  # 그렇지 않으면 `kubectl create cm` 을 조지고
+  config.json: |-
+    {
+      "ConfigController": {
+        "Enabled": true
+      }
+    }
