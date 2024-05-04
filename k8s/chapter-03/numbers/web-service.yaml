@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+
+metadata:
+  name: numbers-web
+  namespace: practice
+
+spec:
+  ports:
+    - port: 8080 # External IP of loadbalancer forward to ClusterIP:8080
+      targetPort: 80
+  selector:
+    app: numbers-web
+  type: LoadBalancer
