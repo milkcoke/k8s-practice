@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sleep-spring-env-v2
+  namespace: practice
+immutable: true
+data:
+  SPRING_ACTIVE_PROFILE: 'wrong'
+  wrong.json: |-
+    {
+      "key1": "value1"
+    }

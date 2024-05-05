@@ -24,6 +24,7 @@ spec:
           volumeMounts:
             - name: config-file
               mountPath: /config
+              readOnly: true # readOnly 라고 해도 configMap 동적 업데이트를 막을 수는 없다.
       volumes:
         - name: config-file
           configMap:

@@ -7,5 +7,7 @@ data:
   SPRING_ACTIVE_PROFILE: 'live'
   config.json: |-
     {
-      "key1": "value1"
+      "key1": "value1",
+      "key2": "value2",
+      "key3": "value3"
     }
