@@ -16,10 +16,18 @@ spec:
         - name: sleep
           image: kiamol/ch03-sleep
           env:
-            - name: KIAMOL_CHAPTER
-              value: "04"
-            - name: KIAMOL_SECTION
+            - name: SPRING_ACTIVE_PROFILE
               valueFrom:
                 configMapKeyRef:
-                  name: sleep-config-literal
-                  key: kiamol.section
+                  name: sleep-spring-env
+                  key: SPRING_ACTIVE_PROFILE
+          volumeMounts:
+            - name: config-file
+              mountPath: /config
+      volumes:
+        - name: config-file
+          configMap:
+            name: sleep-spring-env
+            items:
+              - key: config.json
+                path: config.json

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sleep-spring-env
+  namespace: practice
+data:
+  SPRING_ACTIVE_PROFILE: 'live'
+  config.json: |-
+    {
+      "key1": "value1"
+    }
