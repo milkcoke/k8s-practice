@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: practice
+  name: todo-web
+spec:
+  selector:
+    matchLabels:
+      app: todo-web
+  template:
+    metadata:
+      labels:
+        app: todo-web
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch04-todo-list
+          volumeMounts:
+            - name: config
+              mountPath: /app/config
+              readOnly: true
+      volumes:
+        - name: config
+          configMap:
+            name: todo-web
+            items:
+              - key: config.json
+                path: config.json
+              - key: a_c
+                path: ac.txt
