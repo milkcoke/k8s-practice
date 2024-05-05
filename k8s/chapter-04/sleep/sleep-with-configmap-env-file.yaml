@@ -22,8 +22,8 @@ spec:
           env:
             - name: KIAMOL_CHAPTER
               value: "04Vladimir"
-#            - name: KIAMOL_SECTION
-#              valueFrom:
-#                configMapKeyRef:
-#                  name: sleep-config-literal
-#                  key: kiamol.section
+            - name: SPRING_ACTIVE_PROFILE
+              valueFrom:
+                configMapKeyRef:
+                  name: sleep-config
+                  key: SPRING_ACTIVE_PROFILE

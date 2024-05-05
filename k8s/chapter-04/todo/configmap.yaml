@@ -12,3 +12,15 @@ data:
         "Enabled": true
       }
     }
+  logging.json: |-
+    {
+      "Logging": {
+        "LogLevel": {
+            "ToDoList.Pages": "Warning"
+          }
+        }
+    }
+  a_c: 'b'
+  c: '3a'
+# items.key, name 없이 위 파일을 그저 volumeMount 만 하면 4개의 파일이 생성된다.
+# 키 개수만큼 config.json, logging.json, a_c, c
