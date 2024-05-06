@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sleep
+  namespace: practice
+spec:
+  selector:
+    matchLabels:
+      app: sleep
+  template:
+    metadata:
+      labels:
+        app: sleep
+    spec:
+      containers:
+        - name: sleep
+          image: kiamol/ch03-sleep
+          volumeMounts:
+            - name: empty-volume
+              mountPath: /data
+     # 아무것도 없는 디렉토리를 storage 로 삼는다.
+      volumes:
+        - name: empty-volume
+          emptyDir: {}

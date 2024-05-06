@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pi-web
+  namespace: practice
+  labels:
+    app: pi-web
+spec:
+  selector:
+    matchLabels:
+      app: pi-web
+  template:
+    metadata:
+      labels:
+        app: pi-web
+    spec:
+      containers:
+        - name: web
+          image: kiamol/ch05-pi
+          # 과연 command 4개 vs command 1 + args 3 뭔 차이일까?
+          command:
+            - 'dotnet'
+          args:
+            - 'Pi.Web.dll'
+            - '-m'
+            - 'web'
+          ports:
+            - name: http
+              containerPort: 80

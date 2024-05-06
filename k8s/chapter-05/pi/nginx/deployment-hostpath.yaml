@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pi-proxy
+  namespace: practice
+  labels:
+    app: pi-proxy
+spec:
+  selector:
+    matchLabels:
+      app: pi-proxy
+  template:
+    metadata:
+      labels:
+        app: pi-proxy
+    spec:
+      containers:
+        - name: nginx
+          image: nginx:1.17-alpine
+          ports:
+            - containerPort: 80
+              name: http
+          volumeMounts:
+            - mountPath: /etc/nginx/
+              name: config
+              readOnly: true
+            - name: cache-volume
+              mountPath: /data/nginx/cache
+            - name: node-root
+              mountPath: /pod-logs
+              subPath: var/log/pods
+            - name: node-root
+              mountPath: /container-logs
+              subPath: var/log/containers
+      volumes:
+        - name: config
+          configMap:
+            name: pi-proxy
+        - name: cache-volume
+          hostPath:
+            path: /volumes/nginx/cache
+            type: DirectoryOrCreate
+        - name: node-root # root directory
+          hostPath:
+            path: /
+            type: Directory
