@@ -7,7 +7,7 @@ spec:
   capacity:
     storage: 30Mi
   accessModes:
-    - ReadWriteOnce
+    - ReadWriteOnce # Only single node can access PV
   local: # Must set `nodeAffinity` when use local volumes
     path: /volumes/local
   nodeAffinity:
