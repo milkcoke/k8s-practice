@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: entry
+  namespace: practice
+spec:
+  selector:
+    matchLabels:
+      app: entry
+  template:
+    metadata:
+      labels:
+        app: entry
+    spec:
+      containers:
+        - name: entry
+          image: kiamol/ch03-sleep
+          volumeMounts:
+            - name: node-root
+              mountPath: /postgres-data # /volumes/local:/postgres-data
+      volumes:
+        - name: node-root
+          hostPath:
+            path: /volumes/local # 이름을 참조하면 곧바로 참조될 path
+            type: DirectoryOrCreate
