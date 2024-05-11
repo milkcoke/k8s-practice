@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Release.Name }}-web
+  namespace: practice
+  labels:
+    kiamol: ch10
+spec:
+  selector:
+    app: {{ .Release.Name }}
+    component: web
+  type: {{ .Values.serviceType }}
+  ports:
+    - name: http
+      port: 80

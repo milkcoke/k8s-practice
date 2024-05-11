@@ -1,0 +1,12 @@
+replicaCount: 2
+serviceType: LoadBalancer
+# settings dependencies
+vweb:
+  enabled: false
+proxy:
+  enabled: false
+  upstreamToProxy: "{{ .Release.Name }}-web"
+  # port of proxy service
+  servicePort: 8030
+  # replicaCount
+  replicaCount: 2

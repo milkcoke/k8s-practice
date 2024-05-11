@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: practice
+  # helm package 설치 시점에 템플릿 변수가 값으로 치환되어 yaml script 가 k8s 에 전달된다.
+  # helm chart 를 통한 애플리케이션 실행의 장점은 template 변수로 동일한 애플리케이션을 여러벌 실행 할 수 있다는 점이다.
+  name: {{ .Release.Name }} # Template variables
+  labels:
+    kiamol: {{ .Values.kiamolChapter }}
+
+spec:
+  selector:
+    matchLabels:
+      app: web-ping
+      instance: {{ .Release.Name }}
+  template:
+    metadata:
+      labels:
+        app: web-ping
+        instance: {{ .Release.Name }}
+    spec:
+      containers:
+        - name: web-ping
+          image: kiamol/ch10-web-ping
+          env:
+            - name: TARGET
+              value: {{ .Values.targetUrl }}
+            - name: METHOD
+              value: {{ .Values.httpMethod }}
+            - name: INTERVAL
+              # | quote: Wrapping with double quote for number to string (especially when json)
+              value: {{ .Values.pingIntervalMilliseconds | quote }}
