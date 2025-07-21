@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: todo-db-service
+  namespace: todo
+  labels:
+    kiamol: ch08
+spec:
+  ports:
+    - port: 5432
+      targetPort: 5432
+      protocol: TCP
+      name: postgres
+  selector:
+    app: todo-db # lables.app 이 todo -db 인 pod 를 선택한다.
+  clusterIP: None # StatefulSet 이므로 ClusterIP 를 None 으로 설정한다.  << 왜지?? 이럴거면 ClusterIP 를 왜 설정하는거지?

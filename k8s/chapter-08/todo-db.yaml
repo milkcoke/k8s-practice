@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: todo-db
+  namespace: todo
+spec:
+  selector:
+    matchLabels:
+      app: todo-db
+  # StatefulSet은 반드시 서비스가 필요하다.
+  serviceName: todo-db-service
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: todo-db
+    spec:
+      containers:
+        - name: todo-db
+          image: postgres:11.6-alpine
+          env:
+            - name: POSTGRES_PASSWORD_FILE
+              value: /secrets/postgres-password
+          volumeMounts:
+            - name: secret # secret 식별자 이름
+              mountPath: "/secrets"
+      volumes:
+        - name: secret # secret 식별자 이름
+          secret:
+            secretName: todo-db-secret # secret 자체 이름
+            defaultMode: 0400
+            items:
+              - key: POSTGRES_PASSWORD
+                path: postgres-password
+
+
