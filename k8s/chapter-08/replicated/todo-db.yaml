@@ -6,6 +6,7 @@ metadata:
   labels:
     kiamol: ch08
 spec:
+  podManagementPolicy: Parallel # default: OrderedReady
   selector:
     matchLabels:
       app: todo-db
