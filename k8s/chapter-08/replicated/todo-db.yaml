@@ -9,7 +9,7 @@ spec:
   selector:
     matchLabels:
       app: todo-db
-  serviceName: todo-db-service
+  serviceName: todo-db
   replicas: 2
   template:
     metadata:
