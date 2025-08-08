@@ -1,0 +1,33 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  namespace: sleep
+  name: sleep-with-pvc
+  labels:
+    kiamol: ch08
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: sleep-with-pvc
+  template:
+    metadata:
+      labels:
+        app: sleep-with-pvc
+    spec:
+      containers:
+        - name: sleep-with-pvc
+          image: kiamol/ch03-sleep
+          volumeMounts:
+            - name: data-volume
+              mountPath: /data
+  volumeClaimTemplates:
+    - metadata:
+        name: data-volume
+      spec:
+        accessModes: [ "ReadWriteOnce" ]
+        resources:
+          requests:
+            storage: 5Mi
+
+
